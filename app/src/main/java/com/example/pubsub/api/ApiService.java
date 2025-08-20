@@ -1,0 +1,25 @@
+package com.example.pubsub.api;
+
+import com.example.pubsub.model.League;
+import com.example.pubsub.model.Match;
+import com.example.pubsub.model.Team;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
+
+public interface ApiService {
+
+    @GET("/teams") // Endpoint para buscar todos os times
+    Call<List<Team>> getAllTeams();
+
+    @GET("/leagues") // Endpoint para buscar todas as ligas
+    Call<List<League>> getAllLeagues();
+
+    @GET("/matches/league/{leagueId}") // Endpoint para buscar partidas por liga
+    Call<List<Match>> getMatchesByLeague(@Path("leagueId") String leagueId);
+
+}
+
