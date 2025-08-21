@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.example.pubsub.api.ApiService;
 import com.example.pubsub.model.Team;
+import com.example.pubsub.model.TeamResponse;
 import com.example.pubsub.network.RetrofitClient;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public class TeamRepository {
         apiService = RetrofitClient.getClient().create(ApiService.class);
     }
 
-    // Padrão Singleton para garantir uma única instância do repositório
+    // Padrão Singleton
     public static synchronized TeamRepository getInstance() {
         if (instance == null) {
             instance = new TeamRepository();
@@ -47,16 +48,17 @@ public class TeamRepository {
         final MutableLiveData<List<Team>> data = new MutableLiveData<>();
 
         // Executa a chamada de rede de forma assíncrona
-        apiService.getAllTeams().enqueue(new Callback<List<Team>>() {
+        Call<TeamResponse> allTeams = apiService.getAllTeams();
+        allTeams.enqueue(new Callback<TeamResponse>() {
             @Override
-            public void onResponse(Call<List<Team>> call, Response<List<Team>> response) {
+            public void onResponse(Call<TeamResponse> call, Response<TeamResponse> response) {
                 if (response.isSuccessful()) {
-                    data.setValue(response.body());
+                    data.setValue(response.body().getData());
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Team>> call, Throwable t) {
+            public void onFailure(Call<TeamResponse> call, Throwable t) {
                 Log.e("TeamRepository", "API call failed.", t);
                 data.setValue(null); // Informa a UI que houve um erro
             }
