@@ -1,6 +1,7 @@
 package com.example.pubsub;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -9,11 +10,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pubsub.model.Team;
 import com.example.pubsub.model.TeamsAdapter;
 import com.example.pubsub.repository.TeamRepository;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -37,9 +40,13 @@ public class MainActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
 
         TeamRepository.getInstance().getAllTeams().observe(this, (teams) -> {
-            TeamsAdapter adapter = new TeamsAdapter(teams);
-            recyclerView.setAdapter(adapter);
-
+            if (teams != null && !teams.isEmpty()) {
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                recyclerView.setAdapter(new TeamsAdapter(teams));
+                Log.d("MainActivity", "Total de times: " + teams.size());
+            } else {
+                Log.w("MainActivity", "Lista de times vazia ou nula");
+            }
             progressBar.setVisibility(View.GONE);
         });
     }

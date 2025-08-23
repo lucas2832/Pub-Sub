@@ -3,7 +3,6 @@ package com.example.pubsub.model;
 import com.google.gson.annotations.SerializedName;
 
 public class Team {
-
     @SerializedName("_id")
     private String id;
 
@@ -13,23 +12,15 @@ public class Team {
     @SerializedName("tla")
     private String tla;
 
-    @SerializedName("crest")
-    private String crest;
-
     public String getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getName() {
-        return name;
+        return name != null ? name : "(Sem nome)";
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public String getTla() {
+        return tla;
     }
-
 }

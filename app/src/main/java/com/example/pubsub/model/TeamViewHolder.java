@@ -1,5 +1,6 @@
 package com.example.pubsub.model;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -18,6 +19,7 @@ public class TeamViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(Team team) {
+        Log.d("TeamViewHolder", "Exibindo time: " + team.getId() + " - " + team.getName());
         textViewTeamName.setText(team.getName());
     }
 }

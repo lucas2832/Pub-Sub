@@ -13,13 +13,13 @@ import retrofit2.http.Path;
 
 public interface ApiService {
 
-    @GET("/teams") // Endpoint para buscar todos os times
+    @GET("teams") // Endpoint para buscar todos os times
     Call<TeamResponse> getAllTeams();
 
-    @GET("/leagues") // Endpoint para buscar todas as ligas
+    @GET("leagues") // Endpoint para buscar todas as ligas
     Call<List<League>> getAllLeagues();
 
-    @GET("/matches/league/{leagueId}") // Endpoint para buscar partidas por liga
+    @GET("matches/league/{leagueId}") // Endpoint para buscar partidas por liga
     Call<List<Match>> getMatchesByLeague(@Path("leagueId") String leagueId);
 
 }

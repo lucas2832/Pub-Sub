@@ -10,6 +10,7 @@ import com.example.pubsub.api.ApiService;
 import com.example.pubsub.model.Team;
 import com.example.pubsub.model.TeamResponse;
 import com.example.pubsub.network.RetrofitClient;
+import com.google.gson.Gson;
 
 import java.util.List;
 
@@ -52,6 +53,7 @@ public class TeamRepository {
         allTeams.enqueue(new Callback<TeamResponse>() {
             @Override
             public void onResponse(Call<TeamResponse> call, Response<TeamResponse> response) {
+                Log.d("TeamRepository", "Resposta: " + new Gson().toJson(response.body()));
                 if (response.isSuccessful()) {
                     data.setValue(response.body().getData());
                 }
