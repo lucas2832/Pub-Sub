@@ -1,47 +1,25 @@
 package com.example.pubsub;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.pubsub.model.MatchesAdapter;
-import com.example.pubsub.model.Match;
-import com.example.pubsub.repository.MatchRepository;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-
-    private RecyclerView recyclerView;
-    private MatchesAdapter adapter;
-    private MatchRepository matchRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        recyclerView = findViewById(R.id.recyclerViewMatches);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new MatchesAdapter();
-        recyclerView.setAdapter(adapter);
+        Button btnTeams = findViewById(R.id.btnTeams);
+        Button btnMatches = findViewById(R.id.btnMatches);
 
-        matchRepository = MatchRepository.getInstance();
+        btnTeams.setOnClickListener(v ->
+                startActivity(new Intent(this, TeamsActivity.class)));
 
-        // Observa os dados vindos da API
-        matchRepository.getAllMatches().observe(this, new Observer<List<Match>>() {
-            @Override
-            public void onChanged(List<Match> matches) {
-                if (matches != null && !matches.isEmpty()) {
-                    adapter.setMatches(matches);
-                } else {
-                    Log.e("MainActivity", "Nenhuma partida recebida.");
-                }
-            }
-        });
+        btnMatches.setOnClickListener(v ->
+                startActivity(new Intent(this, MatchesActivity.class)));
     }
 }
