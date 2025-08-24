@@ -1,7 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/background_with_opacity">
 
     <ProgressBar
         android:id="@+id/progressBarMatches"
@@ -14,9 +15,10 @@
         android:id="@+id/btnRefresh"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/black"
         android:padding="8dp"
-        android:text="Atualizar"
-        android:textColor="@android:color/white" />
+        android:text="Atualizar" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewMatches"
