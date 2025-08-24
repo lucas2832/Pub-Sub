@@ -2,6 +2,7 @@ package com.example.pubsub.api;
 
 import com.example.pubsub.model.League;
 import com.example.pubsub.model.Match;
+import com.example.pubsub.model.MatchesResponse;
 import com.example.pubsub.model.Team;
 import com.example.pubsub.model.TeamResponse;
 
@@ -19,8 +20,9 @@ public interface ApiService {
     @GET("leagues") // Endpoint para buscar todas as ligas
     Call<List<League>> getAllLeagues();
 
-    @GET("matches/league/{leagueId}") // Endpoint para buscar partidas por liga
-    Call<List<Match>> getMatchesByLeague(@Path("leagueId") String leagueId);
+    @GET("matches")
+    Call<MatchesResponse> getMatches();
+
 
 }
 
